@@ -14,7 +14,7 @@ namespace ProblematicProblem
         static void Main(string[] args)
         {
             Random rng = new Random();
-            Console.Write("Hello, welcome to the random activity generator! Would you like to generate a random activity? yes/no: ");
+            Console.Write("Hello, welcome to the random activity generator! \nWould you like to generate a random activity? yes/no: ");
             userAnswer = Console.ReadLine().ToLower();
 
             if (userAnswer != "yes")
@@ -50,7 +50,7 @@ namespace ProblematicProblem
                 Console.WriteLine();
 
                 Console.Write("Would you like to add any activities before we generate one? yes/no: ");
-                    string addToList = (Console.ReadLine().ToLower()); 
+                string addToList = (Console.ReadLine().ToLower()); 
             
                 Console.WriteLine();
 
@@ -62,7 +62,7 @@ namespace ProblematicProblem
                     foreach (string activity in activities)
                     {
                         Console.Write($"{activity} ");
-                        Thread.Sleep(250);
+                        Thread.Sleep(150);
                     }
 
                     Console.WriteLine();
@@ -72,46 +72,51 @@ namespace ProblematicProblem
                 }
             }
 
-            while (cont)
+            do
             {
                 Console.Write("Connecting to the database");
                 for (int i = 0; i < 10; i++)
-            {
-            Console.Write(". ");
-            Thread.Sleep(200);
-            }
+                {
+                    Console.Write(". ");
+                    Thread.Sleep(200);
+                }
                 Console.WriteLine();
+
                 Console.Write("Choosing your random activity");
-            for (int i = 0; i < 9; i++)
-            {
-                Console.Write(". ");
-                Thread.Sleep(200);
-            }
 
-            Console.WriteLine();
+                for (int i = 0; i < 9; i++)
+                {
+                    Console.Write(". ");
+                    Thread.Sleep(200);
+                }
 
-            int randomNumber = rng.Next(activities.Count);
-            string randomActivity = activities[randomNumber];
-            if (userAge < 21 && randomActivity == "Wine Tasting")
-            {  
-                Console.WriteLine($"Oh no! Looks like you are too young to do {randomActivity}");
-                Console.WriteLine("Pick something else!");
-                activities.Remove(randomActivity);
+                Console.WriteLine();
 
-                //string randomNumber = rng.Next(activities.Count);
-               // string randomActivity = activities[randomNumber];
-            };
-            Console.Write($"Ah got it! {userName}, your random activity is: {randomActivity}! Is this ok or do you want to grab another activity? Keep/Redo: ");
-                userAnswer = Console.ReadLine().ToLower();   
-            if (userAnswer.ToLower() != "redo")
+                int randomNumber = rng.Next(activities.Count);
+                string randomActivity = activities[randomNumber];
+
+                if (userAge < 21 && randomActivity == "Wine Tasting")
+                {
+                    Console.WriteLine($"Oh no! Looks like you are too young to do {randomActivity}");
+                    Console.WriteLine("Pick something else!");
+
+                    activities.Remove(randomActivity);
+
+                    randomNumber = rng.Next(activities.Count);
+                    randomActivity = activities[randomNumber];
+                }
+
+
+                Console.Write($"Ah got it! {userName}, your random activity is: {randomActivity}! \nIs this ok or do you want to grab another activity? Keep/Redo: ");
+                userAnswer = Console.ReadLine().ToLower();
+
+                if (userAnswer.ToLower() != "redo")
                 {
                     Console.WriteLine("Have Fun!");
                     cont = false;
                 }
-            
-            Console.WriteLine();
-                       
-            }
+             
+            } while (cont);
         }
     }
 }
